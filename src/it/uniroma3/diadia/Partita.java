@@ -1,5 +1,6 @@
 package it.uniroma3.diadia;
 import it.uniroma3.diadia.ambienti.Labirinto;
+
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
@@ -14,8 +15,10 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 public class Partita {
 
 	static final private int CFU_INIZIALI = 20;
-
+	
+	
 	private Labirinto labirinto;
+	private Stanza stanzacorrente;
 	private Giocatore giocatore;
 	private boolean finita;
 
@@ -23,12 +26,19 @@ public class Partita {
 		labirinto = new Labirinto();
 		giocatore = new Giocatore();
 		labirinto.creaStanze();
+		stanzacorrente=labirinto.getStanzaIniziale();
 		this.finita = false;
 	}
 
     /**
      * Crea tutte le stanze e le porte di collegamento
      */
+	public Stanza getStanzaCorrente() {
+		return stanzacorrente;
+	}
+	public void setStanzaCorrente(Stanza stanza) {
+		this.stanzacorrente=stanza;
+	}
     public Labirinto getLabirinto(){
 		return labirinto;
 	}
@@ -47,7 +57,7 @@ public class Partita {
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return this.getLabirinto().getStanzaCorrente()== this.getLabirinto().getStanzaVincente();
+		return this.getStanzaCorrente()== this.getLabirinto().getStanzaVincente();
 	}
 
 	/**
@@ -56,6 +66,12 @@ public class Partita {
 	 */
 	public boolean isFinita() {
 		return finita || vinta() || (this.giocatore.getCfu() == 0);
+	}
+	
+	public boolean giocatoreIsVIvo() {
+		if(this.giocatore.getCfu()!=0)
+			return true;
+		return false;
 	}
 
 	/**
@@ -66,6 +82,6 @@ public class Partita {
 		this.finita = true;
 	}
 	public String Tostring() {
-		return ("stanza corrente:"+this.getLabirinto().getStanzaCorrente().getNome() + "\nCFU:" + this.giocatore.getCfu()) ;
+		return ("stanza corrente:"+this.getStanzaCorrente().getNome() + "\nCFU:" + this.giocatore.getCfu()) ;
 	}
 }

@@ -21,6 +21,7 @@ public class Borsa{
             return false;
         if(this.numeroAttrezzi == 10)
             return false;
+        
         this.attrezzi[this.numeroAttrezzi] = attrezzo; // aggiunge un attrezzo all'array
         this.numeroAttrezzi++;
         return true;
@@ -69,13 +70,17 @@ public class Borsa{
     public String toString(){
         StringBuilder s = new StringBuilder();
         if(!this.isEmpty()){
-            s.append("contenuto borsa ("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
+            s.append("contenuto borsa("+this.getPeso()+"kg/"+this.getPesoMax()+"kg): ");
             for(int i=0; i<this.numeroAttrezzi;i++)
                 s.append(attrezzi[i].toString()+" ");
         }
         else
             s.append("Borsa vuota");
         return s.toString();
+    }
+    
+    public Attrezzo[] getAttrezzi(){
+    	return this.attrezzi;
     }
 
 }

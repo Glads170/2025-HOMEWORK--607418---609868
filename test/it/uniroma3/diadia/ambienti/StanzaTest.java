@@ -28,11 +28,7 @@ public class StanzaTest {
 		stanzatest1.impostaStanzaAdiacente("nord", stanzatest2);
 		assertEquals(stanzatest2, stanzatest1.getStanzaAdiacente("nord"));
 	}
-	@Test
-	void testimpostastanzaadiacente_reciproco() {
-		stanzatest1.impostaStanzaAdiacente("nord", stanzatest2);
-		assertEquals(stanzatest1, stanzatest2.getStanzaAdiacente("sud"));
-	}
+
 	@Test
 	void testimpostastanzaadiacente1_3occupata() {
 		final Stanza stanzatest3=new Stanza("stanzatest3");

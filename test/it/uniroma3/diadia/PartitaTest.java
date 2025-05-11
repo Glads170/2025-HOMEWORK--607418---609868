@@ -31,7 +31,7 @@ public class PartitaTest {
 	@Test
 	public void testPartitaFinitaQuandoVinta() {
 		Stanza stanzaVincente = l.getStanzaVincente();
-        p.getLabirinto().setStanzaCorrente(stanzaVincente);
+        p.setStanzaCorrente(stanzaVincente);
         assertTrue(p.isFinita());
 	}
 	
@@ -49,13 +49,13 @@ public class PartitaTest {
 	@Test
 	public void testVintaDopoSetStanzaCorrenteNonVincente() {
 		Stanza stanza1 = new Stanza("stanza 1");
-	    p.getLabirinto().setStanzaCorrente(stanza1);
+	    p.setStanzaCorrente(stanza1);
 	    assertFalse(p.vinta());
 	}
 
 	@Test
 	public void testVintaDopoSetStanzaCorrenteVincente() {
-	    p.getLabirinto().setStanzaCorrente(l.getStanzaVincente());
+	    p.setStanzaCorrente(l.getStanzaVincente());
 	    assertTrue(p.vinta());
 	}
 	//Test per il metodo getLabirinto

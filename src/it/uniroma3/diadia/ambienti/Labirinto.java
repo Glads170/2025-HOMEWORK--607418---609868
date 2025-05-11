@@ -2,7 +2,7 @@ package it.uniroma3.diadia.ambienti;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Labirinto{
-  private Stanza stanzaCorrente;
+  private Stanza stanzaIniziale;
   private Stanza stanzaVincente;
 
   // creo tutte le stanze i collegamenti fra essi e metto gli attrezzi
@@ -16,7 +16,7 @@ public class Labirinto{
     Stanza atrio = new Stanza("Atrio");
     Stanza aulaN11 = new Stanza("Aula N11");
     Stanza aulaN10 = new Stanza("Aula N10");
-    Stanza laboratorio = new Stanza("Laboratorio Campus");
+    Stanza laboratorio = new StanzaBloccata("Laboratorio Campus","est","osso");
     Stanza biblioteca = new Stanza("Biblioteca");
 
     /* collega le stanza */
@@ -38,17 +38,17 @@ public class Labirinto{
     atrio.addAttrezzo(osso);
 
     //gioco comincia nell'atrio
-    stanzaCorrente = atrio;
+    stanzaIniziale = atrio;
     stanzaVincente = biblioteca;
   }
 
     public Stanza getStanzaVincente(){
       return stanzaVincente;
     }
-    public void setStanzaCorrente(Stanza stanzaCorrente){
-      this.stanzaCorrente = stanzaCorrente;
+    public void setStanzaIniziale(Stanza stanza){
+      this.stanzaIniziale = stanza;
   }
-  public Stanza getStanzaCorrente(){
-    return this.stanzaCorrente;
+  public Stanza getStanzaIniziale(){
+    return this.stanzaIniziale;
   }
 }
