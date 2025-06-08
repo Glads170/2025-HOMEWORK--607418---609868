@@ -4,30 +4,22 @@ import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoPosa implements Comando {
-	private String nome="posa";
-	private String nomeAttrezzo;
-	@Override
-	public void setParametro(String parametro) {
-		this.nomeAttrezzo=parametro;
+public class ComandoPosa extends AbstractComando {
+	
+	public ComandoPosa() {
+		super("posa");
 	}
-	
 	@Override
-	public String getParametro() {
-		return this.nomeAttrezzo;
-	}
-	
-	@Override
-	public String getNome() {
-		return this.nome;
-	} 
-	
-	@Override
-	public void esegui(Partita partita, IO io) {
-		Attrezzo a = partita.getGiocatore().getBorsa().getAttrezzo(this.nomeAttrezzo);
-		if(partita.getGiocatore().getBorsa().hasAttrezzo(this.nomeAttrezzo) == true) {
+	public void esegui(Partita partita) {
+		Attrezzo a = partita.getGiocatore().getBorsa().getAttrezzo(this.getParametro());
+		if(partita.getGiocatore().getBorsa().hasAttrezzo(this.getParametro()) == true) {
 			partita.getStanzaCorrente().addAttrezzo(a);
-			partita.getGiocatore().getBorsa().removeAttrezzo(this.nomeAttrezzo);
+			partita.getGiocatore().getBorsa().removeAttrezzo(this.getParametro());
+			io.mostraMessaggio("hai posato " + this.getParametro());
+			io.mostraMessaggio(partita.getGiocatore().getBorsa().toString());
+		}
+		else {
+			io.mostraMessaggio("non hai niente del genere");
 		}
 	}
 

@@ -3,34 +3,24 @@ package it.uniroma3.diadia.comando;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.*;
 
-public class ComandoPrendi implements Comando {
-	private String nome="prendi";
-	private String nomeAttrezzo;
+public class ComandoPrendi extends AbstractComando{
 	
-	@Override
-	public void setParametro(String parametro) {
-		this.nomeAttrezzo=parametro;
+	
+	public ComandoPrendi() {
+		super("prendi");
+		
 	}
 	@Override
-	public String getParametro() {
-		return this.nomeAttrezzo;
-	}
-	@Override
-	public String getNome() {
-		return this.nome;
-	} 
-	@Override
-	public void esegui(Partita partita, IO io) {
-		Attrezzo a = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
-		if(partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo) == true) {
+	public void esegui(Partita partita) {
+		Attrezzo a = partita.getStanzaCorrente().getAttrezzo(this.getParametro());
+		if(partita.getStanzaCorrente().hasAttrezzo(this.getParametro()) == true) {
 		partita.getGiocatore().getBorsa().addAttrezzo(a);
-		partita.getStanzaCorrente().removeAttrezzo(a);
+		partita.getStanzaCorrente().removeAttrezzo(this.getParametro());
+		io.mostraMessaggio("hai preso " + this.getParametro());
 		io.mostraMessaggio(partita.getGiocatore().getBorsa().toString());
-		io.mostraMessaggio("\n");
 		}
 		else {
 			io.mostraMessaggio("non c'è questo attrezzo nella stanza corrente");
-			io.mostraMessaggio("\n");
 		}
 	}
 

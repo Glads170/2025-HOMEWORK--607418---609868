@@ -25,8 +25,15 @@ public class Partita {
 	public Partita(){
 		labirinto = new Labirinto();
 		giocatore = new Giocatore();
-		labirinto.creaStanze();
+		//labirinto.creaStanze();
 		stanzacorrente=labirinto.getStanzaIniziale();
+		this.finita = false;
+	}
+	
+	public Partita(Labirinto labirinto) {
+		this.labirinto = labirinto;
+		this.giocatore = new Giocatore();
+		this.stanzacorrente = labirinto.getStanzaIniziale();
 		this.finita = false;
 	}
 
@@ -82,6 +89,6 @@ public class Partita {
 		this.finita = true;
 	}
 	public String Tostring() {
-		return ("stanza corrente:"+this.getStanzaCorrente().getNome() + "\nCFU:" + this.giocatore.getCfu()) ;
+		return ("stanza corrente:"+this.getStanzaCorrente().getDescrizione() + "\nCFU:" + this.giocatore.getCfu()) ;
 	}
 }

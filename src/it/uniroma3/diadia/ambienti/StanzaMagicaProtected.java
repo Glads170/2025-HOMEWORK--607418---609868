@@ -23,8 +23,6 @@ final static private int SOGLIA_MAGICA_DEFAULT = 3;
 	public void setsogliaMagica(int parametro) {
 		this.sogliaMagica=parametro;
 	}
-	
-	
 	public StanzaMagicaProtected(String nome) {
 		this(nome,SOGLIA_MAGICA_DEFAULT);
 	}

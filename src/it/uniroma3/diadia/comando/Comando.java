@@ -22,5 +22,5 @@ public interface Comando {
 	
     public void setParametro(String parametro);
     
-    public void esegui(Partita partita, IO io);
+    public void esegui(Partita partita);
 }

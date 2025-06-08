@@ -1,42 +1,32 @@
 package it.uniroma3.diadia;
-
+import java.util.*;
 public class IOSimulator implements IO{
-	private String[] righeLette;
-	private int indiceRigheLette;
-	
-	private String[] messaggiProdotti;
-	private int indiceMessaggiProdotti;
-	
-	public String[] getMessaggiProdotti() {
+	private List<String> righeLette=new ArrayList<String>();
+	int contatore=0;
+	private List<String> messaggiProdotti = new ArrayList<String>();;
+
+	public List<String> getMessaggiProdotti() {
 		return messaggiProdotti;
 	}
-	public void setMessaggiProdotti(String[] messaggiProdotti) {
+	public void setMessaggiProdotti(List<String> messaggiProdotti) {
 		this.messaggiProdotti = messaggiProdotti;
 	}
-	
-	public IOSimulator(String[] righeDaLeggere) {
-		this.righeLette = righeDaLeggere;
-		this.messaggiProdotti = new String[42*23];
-		this.indiceRigheLette = 0;
-		this.indiceMessaggiProdotti=0;
+
+	public IOSimulator(List <String> righeDaLeggere) {
+		this.righeLette.addAll(righeDaLeggere);
 	}
-	
+
 	@Override
 	public String leggiRiga() {
-	    if (indiceRigheLette >= righeLette.length) {
-	        return ""; 
-	    }
-	    return righeLette[indiceRigheLette++];
+		if (contatore < righeLette.size()) {
+			return righeLette.get(contatore++);
+		}
+		return null;
 	}
-	
+
+
 	@Override
 	public void mostraMessaggio(String messaggio) {
-	    if (indiceMessaggiProdotti >= messaggiProdotti.length) {
-	        return;
-	    }
-	    this.messaggiProdotti[indiceMessaggiProdotti++] = messaggio;
+		this.messaggiProdotti.add(messaggio);
 	}
-	
-	
-	
 }

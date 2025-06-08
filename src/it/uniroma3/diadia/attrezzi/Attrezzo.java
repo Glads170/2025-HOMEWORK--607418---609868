@@ -56,5 +56,13 @@ public class Attrezzo {
 	public String toString() {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
 	}
+	@Override
+	public int hashCode() {
+		return this.nome.hashCode()+this.peso*7;
+	}
+	@Override
+	public boolean equals(Object o) {
+		return this.nome.equals(((Attrezzo)o).getNome());
+	}
 
 }
