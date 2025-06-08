@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.ambienti.*;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 import it.uniroma3.diadia.giocatore.*;
 
 public class PartitaTest {
@@ -15,8 +16,14 @@ public class PartitaTest {
 
     @BeforeEach
     public void setUp() {
-        l = new Labirinto();
-        l.creaStanze();
+        l = new LabirintoBuilder()
+				.addStanzaIniziale("atrio").addAttrezzo("osso",1)
+				.addStanzaVincente("Biblioteca")
+				.addStanza("Aula N11")
+				.addStanza("Aula N10").addAttrezzo("lanterna",3)
+				.addStanzaBloccata("Laboratorio Campus","ovest","osso")
+				.addAdiacenza("atrio", "Biblioteca","NORD").addAdiacenza("atrio", "Aula N11","EST").addAdiacenza("atrio", "Laboratorio Campus","OVEST")
+				.addAdiacenza("Aula N11","Laboratorio Campus", "EST").addAdiacenza("Aula N10", "Laboratorio Campus", "OVEST").addAdiacenza("Aula N11", "Aula N10", "SUD").getLabirinto();
         p = new Partita();
         p.setLabirinto(l);
         g = p.getGiocatore();

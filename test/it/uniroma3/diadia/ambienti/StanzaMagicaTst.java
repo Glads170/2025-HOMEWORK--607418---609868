@@ -28,21 +28,21 @@ class StanzaMagicaTst {
 	@Test
 	void addattrezzodoppotrevolte() {
 		 camera.addAttrezzo(candela);
-		 camera.removeAttrezzo(candela);
+		 camera.removeAttrezzo("candela");
 		 camera.addAttrezzo(candela);
-		 camera.removeAttrezzo(candela);
+		 camera.removeAttrezzo("candela");
 		 camera.addAttrezzo(candela);
-		 camera.removeAttrezzo(candela);
+		 camera.removeAttrezzo("candela");
 		 camera.addAttrezzo(candela);
-		 assertEquals("alednac",camera.getAttrezzi()[0].getNome());
-		 assertEquals(8,camera.getAttrezzi()[0].getPeso());
+		 assertTrue(camera.hasAttrezzo("alednac"));
+		 assertEquals(8,camera.getAttrezzo("alednac").getPeso());
 	}
 	@Test
 	void addattrezzosemplice() {
-		 camera.removeAttrezzo(candela);
+		 camera.removeAttrezzo("candela");
 		 camera.addAttrezzo(candela);
-		 assertEquals("candela",camera.getAttrezzi()[0].getNome());
-		 assertEquals(4,camera.getAttrezzi()[0].getPeso());
+		 assertTrue(camera.hasAttrezzo("candela"));
+		 assertEquals(4,camera.getAttrezzo("candela").getPeso());
 	}
 	
 

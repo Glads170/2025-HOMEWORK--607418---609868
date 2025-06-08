@@ -12,36 +12,36 @@ class StanzaBloccatsTest {
 	Stanza stanzaadiacente;
 	@BeforeEach
 	void setUp() throws Exception {
-		stanza = new StanzaBloccata("stanza","nord","chiave");
+		stanza = new StanzaBloccata("stanza",Direzioni.NORD,"chiave");
 		chiave = new Attrezzo("chiave", 1);
 		stanzaadiacente = new	Stanza("stanzaadiacente");
-		stanza.impostaStanzaAdiacente("nord", stanzaadiacente);
+		stanza.impostaStanzaAdiacente(Direzioni.NORD, stanzaadiacente);
 	}
 
 	@Test
 	void testcostruttore() {
-		assertEquals("nord",stanza.getDirezioneBloccata());
+		assertEquals(0,stanza.getDirezioneBloccata().getGradi());
 		assertEquals(chiave.getNome(),stanza.getChiave());
 	}
 
 	@Test 
 	void testgetstanzaadiacente_nullo() {
-		assertEquals(stanza,stanza.getStanzaAdiacente("nord"));
+		assertEquals(stanza,stanza.getStanzaAdiacente(Direzioni.NORD));
 	}
 	@Test
 	void testgetstanzaadiacente_buon() {
 		stanza.addAttrezzo(chiave);
-		assertEquals(stanzaadiacente,stanza.getStanzaAdiacente("nord"));
+		assertEquals(stanzaadiacente,stanza.getStanzaAdiacente(Direzioni.NORD));
 	}
 	@Test
 	void direzionenonbloccata() {
 		Stanza stanzaadiacentenonbloccata = new Stanza("stanzanonbloccata");
-		stanza.impostaStanzaAdiacente("est", stanzaadiacentenonbloccata);
-		assertEquals(stanzaadiacentenonbloccata,stanza.getStanzaAdiacente("est"));
+		stanza.impostaStanzaAdiacente(Direzioni.EST, stanzaadiacentenonbloccata);
+		assertEquals(stanzaadiacentenonbloccata,stanza.getStanzaAdiacente(Direzioni.EST));
 	}
 	@Test
 	void getdescrizione_false() {
-		String descrizione = "Stanza bloccata nella direzione: "+ stanza.getDirezioneBloccata()+"\nPrendi l'attrezzo: " + stanza.getChiave() + " e posalo nella stanza";
+		String descrizione = "\nStanza bloccata nella direzione: "+ stanza.getDirezioneBloccata()+"\nPrendi l'attrezzo " + stanza.getChiave() + " e posalo nella stanza";
 		assertEquals(stanza.toString()+descrizione,stanza.getDescrizione());
 	}
 	@Test

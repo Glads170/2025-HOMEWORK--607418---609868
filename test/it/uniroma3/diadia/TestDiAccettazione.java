@@ -1,27 +1,46 @@
 package it.uniroma3.diadia;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeEach; 
 import org.junit.jupiter.api.Test;
-class TestDiAccettazione {
+
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
+import it.uniroma3.diadia.giocatore.Giocatore;
+
+import java.util.*;
+class TestDiAccettazione  {
+	private Partita p;
+    private Labirinto l;
+    private Giocatore g;
+	@BeforeEach
+	public void setup(){
+		l = new LabirintoBuilder()
+				.addStanzaIniziale("atrio").addAttrezzo("osso",1)
+				.addStanzaVincente("Biblioteca")
+				.addStanza("Aula N11")
+				.addStanza("Aula N10").addAttrezzo("lanterna",3)
+				.addStanzaBloccata("Laboratorio Campus","ovest","osso")
+				.addAdiacenza("atrio", "Biblioteca","NORD").addAdiacenza("atrio", "Aula N11","EST").addAdiacenza("atrio", "Laboratorio Campus","OVEST")
+				.addAdiacenza("Aula N11","Laboratorio Campus", "EST").addAdiacenza("Aula N10", "Laboratorio Campus", "OVEST").addAdiacenza("Aula N11", "Aula N10", "SUD").getLabirinto();
+         
+	}
+	
 
 	@Test
-    void testPartitaVittoria() {
-		String[] lineedaleggere= {"guarda","prendi osso","vai ovest","vola","posa osso","vai est","vai nord"};
+    void testPartitaVittoria() throws Exception {
+		List <String> lineedaleggere= Arrays.asList("guarda","prendi osso","vai ovest","vola","posa osso","vai est","vai nord"); 
 		IOSimulator io = new IOSimulator(lineedaleggere); 
-		DiaDia gioco = new DiaDia(io);
+		DiaDia gioco = new DiaDia(l,io);
 		gioco.gioca(); 
 
-		
-		
         // Verifica che i messaggi siano stati prodotti
-        String[] messaggi = io.getMessaggiProdotti();
+        List<String> messaggi = io.getMessaggiProdotti();
  
         // Possiamo cercare un messaggio chiave, ad esempio:
         boolean contieneMessaggioFinale = false;
         for (String m : messaggi) {
-            if (m != null && m.contains("hai vinto")) {
+            if (m != null && m.toLowerCase().contains("hai vinto")) {
                 contieneMessaggioFinale = true;
                 break; 
             }
@@ -30,15 +49,13 @@ class TestDiAccettazione {
     }
 	
 	@Test
-	void testStanzaBloccata() {
-		String[] lineedaleggere= {"guarda","prendi osso","vai ovest","fine"};
+	void testStanzaBloccata() throws Exception {
+		List <String> lineedaleggere= Arrays.asList("guarda","prendi osso","vai ovest","fine");
 		IOSimulator io = new IOSimulator(lineedaleggere); 
-		DiaDia gioco = new DiaDia(io);
+		DiaDia gioco = new DiaDia(l,io);
 		gioco.gioca(); 
 		
-		
-		
-	    String[] messaggi = io.getMessaggiProdotti();
+		List <String>  messaggi = io.getMessaggiProdotti();
 	
 	    boolean contieneBloccata = false;
 	    for (String m : messaggi) {
@@ -51,13 +68,13 @@ class TestDiAccettazione {
 	}
 	
 	@Test
-	void testMessaggiodiBenveuto() {
-		String[] lineedaleggere= {"fine"};
+	void testMessaggiodiBenveuto() throws Exception {
+		List<String> lineedaleggere= Arrays.asList("fine");
 		IOSimulator io = new IOSimulator(lineedaleggere); 
-		DiaDia gioco = new DiaDia(io);
-		gioco.gioca(); 
+		DiaDia gioco = new DiaDia(l,io);
+		gioco.gioca();  
 		
-	    String[] messaggi = io.getMessaggiProdotti();
+	    List <String> messaggi = io.getMessaggiProdotti();
 	
 	    boolean contieneiniziale = false;
 	    for (String m : messaggi) {
@@ -70,14 +87,14 @@ class TestDiAccettazione {
 	}
 	
 	@Test
-	void testMessaggioComandononvalido() {
-		String[] lineedaleggere= {"vola","fine"};
+	void testMessaggioComandononvalido() throws Exception {
+		List <String> lineedaleggere= Arrays.asList("vola","fine");
 		IOSimulator io = new IOSimulator(lineedaleggere); 
-		DiaDia gioco = new DiaDia(io);
-		gioco.gioca(); 
+		DiaDia gioco = new DiaDia(l,io);
+		gioco.gioca();  
 		
 		
-	    String[] messaggi = io.getMessaggiProdotti();
+		List <String> messaggi = io.getMessaggiProdotti();
 	   
 	    boolean contienecomandononvalido = false;
 	    for (String m : messaggi) {
@@ -90,5 +107,7 @@ class TestDiAccettazione {
 	}
 	
 }
+	
+
 
 

@@ -4,7 +4,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 import static org.junit.jupiter.api.Assertions.*; 
 import org.junit.jupiter.api.BeforeEach; 
 import org.junit.jupiter.api.Test;
-
+import java.util.*;
 public class StanzaTest {
 	private Stanza stanzatest1;
 	private Stanza stanzatest2;
@@ -25,16 +25,16 @@ public class StanzaTest {
 	/*test impostastanzaadiacente*/
 	@Test
 	void testimpostastanzaadiacente1_2vuota() {
-		stanzatest1.impostaStanzaAdiacente("nord", stanzatest2);
-		assertEquals(stanzatest2, stanzatest1.getStanzaAdiacente("nord"));
+		stanzatest1.impostaStanzaAdiacente(Direzioni.NORD, stanzatest2);
+		assertEquals(stanzatest2, stanzatest1.getStanzaAdiacente(Direzioni.NORD));
 	}
 
 	@Test
 	void testimpostastanzaadiacente1_3occupata() {
 		final Stanza stanzatest3=new Stanza("stanzatest3");
-		stanzatest1.impostaStanzaAdiacente("nord", stanzatest2);
-		stanzatest1.impostaStanzaAdiacente("nord", stanzatest3);
-		assertEquals(stanzatest3, stanzatest1.getStanzaAdiacente("nord"));
+		stanzatest1.impostaStanzaAdiacente(Direzioni.NORD, stanzatest2);
+		stanzatest1.impostaStanzaAdiacente(Direzioni.NORD, stanzatest3);
+		assertEquals(stanzatest3, stanzatest1.getStanzaAdiacente(Direzioni.NORD));
 	}
 	
 	/*test hasattrezzo*/
@@ -60,39 +60,38 @@ public class StanzaTest {
 	void testremoveattrezzopresente() {
 		stanzatest1.addAttrezzo(arco);
 		stanzatest1.addAttrezzo(osso);
-		assertEquals(true,stanzatest1.removeAttrezzo(osso));
+		assertEquals(osso,stanzatest1.removeAttrezzo("osso"));
 	}
 	@Test
 	void testremoveattrezzoassente() {
 		stanzatest1.addAttrezzo(spada);
 		stanzatest1.addAttrezzo(arco);
-		assertEquals(true,stanzatest1.removeAttrezzo(spada));
-		assertEquals(arco,stanzatest1.getAttrezzi()[0]);
+		assertEquals(spada,stanzatest1.removeAttrezzo("spada"));
+		assertFalse(stanzatest1.getAttrezzi().contains(spada));
 	}
 	@Test
 	void testremoveattrezzovuoto() {
-		assertEquals(false,stanzatest1.removeAttrezzo(osso));
+		assertEquals(null,stanzatest1.removeAttrezzo("osso"));
 	}
 	
 	/*test getdirezione*/
 	@Test
 	void testgetdirezioni1stanza() {
-		stanzatest1.impostaStanzaAdiacente("sud", stanzatest2);
-		String direzioni[]=stanzatest1.getDirezioni();
-		assertEquals("sud",direzioni[0]);
+		stanzatest1.impostaStanzaAdiacente(Direzioni.SUD, stanzatest2);
+		List<Direzioni> direzioni = stanzatest1.getDirezioni();
+		assertTrue(direzioni.contains(Direzioni.SUD));
 	}
 	@Test
 	void testgetdirezioni2stanze() {
-		stanzatest1.impostaStanzaAdiacente("sud", stanzatest2);
-		stanzatest1.impostaStanzaAdiacente("est", stanzatest3);
-		String direzioni[]=stanzatest1.getDirezioni();
-		assertEquals("sud",direzioni[0]);
-		assertEquals("est",direzioni[1]);
-		
-	}
+		stanzatest1.impostaStanzaAdiacente(Direzioni.SUD, stanzatest2);
+		stanzatest1.impostaStanzaAdiacente(Direzioni.SUD, stanzatest3);
+		List<Direzioni> direzioni = stanzatest1.getDirezioni();
+		assertTrue(direzioni.contains(Direzioni.SUD));
+		assertTrue(direzioni.contains(Direzioni.SUD));
+		}
 	@Test
 	void testgetdirezioni0stanze() {
-		String[] direzioni = stanzatest1.getDirezioni();
-	    assertEquals(0, direzioni.length);
+		List<Direzioni> direzioni = stanzatest1.getDirezioni();
+	    assertEquals(0, direzioni.size());
 	}
 }
