@@ -1,0 +1,6 @@
+Stanze:Normale atrio,Magica biblioteca 2,Buia aulaN11 coltello,Bloccata salagiochi nord candela
+Inizio:atrio
+Vincente:salagiochi
+Attrezzi:croccantini 3 atrio, candela 5 biblioteca
+Personaggi:Mago atrio merilno abracadabra bacchetta 4, Strega aulaN11 giulia buuuuu, Cane biblioteca pippo bau osso 2 
+Uscite:atrio nord biblioteca,biblioteca nord aulaN11,aulaN11 nord salagiochi
